@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "optimized-combat",
+  "version": "${version}",
+  "name": "Optimized Combat",
+  "description": "Optimize the combat system",
+  "authors": [
+    "ykkz000"
+  ],
+  "contact": {
+    "repo": "https://github.com/ykkz000/Optimized Combat"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/optimized-combat/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "ykkz000.optimizedcombat.client.OptimizedCombatClient"
+    ],
+    "main": [
+      "ykkz000.optimizedcombat.OptimizedCombat"
+    ]
+  },
+  "mixins": [
+    "optimized-combat.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

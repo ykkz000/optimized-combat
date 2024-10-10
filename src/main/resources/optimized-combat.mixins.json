@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ykkz000.optimizedcombat.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "HungerMangerMixin",
+    "LivingEntityMixin",
+    "PersistentProjectileEntityMixin",
+    "RangedWeaponItemMixin",
+    "ServerPlayerEntityMixin",
+    "ShieldItemMixin",
+    "extend.ExtendedEnchantmentImpl",
+    "extend.ExtendedProjectileEntityImpl"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

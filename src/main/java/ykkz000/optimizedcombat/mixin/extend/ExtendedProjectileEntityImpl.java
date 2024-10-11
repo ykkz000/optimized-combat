@@ -47,7 +47,6 @@ public abstract class ExtendedProjectileEntityImpl extends Entity implements Ext
         super(entityType, world);
     }
 
-
     @Override
     @Unique
     public int optimizedCombat$getExplosionLevel() {

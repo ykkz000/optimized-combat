@@ -57,7 +57,7 @@ public class OptimizedCombat implements ModInitializer {
             boolean success = EntityUtils.refreshAttributeModifier(player,
                     EntityAttributes.GENERIC_MAX_ABSORPTION,
                     ATTRIBUTE_MODIFIER_GENERIC_MAX_ABSORPTION_OPTIMIZE,
-                    false,
+                    true,
                     2.0,
                     EntityAttributeModifier.Operation.ADD_VALUE);
             if (!success) {
@@ -67,7 +67,7 @@ public class OptimizedCombat implements ModInitializer {
             success = EntityUtils.refreshAttributeModifier(player,
                     EntityAttributes.GENERIC_MAX_HEALTH,
                     ATTRIBUTE_MODIFIER_GENERIC_MAX_HEALTH_OPTIMIZE,
-                    false,
+                    true,
                     healthDelta,
                     EntityAttributeModifier.Operation.ADD_VALUE);
             if (!success) {
@@ -79,7 +79,7 @@ public class OptimizedCombat implements ModInitializer {
             success = EntityUtils.refreshAttributeModifier(player,
                     EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
                     ATTRIBUTE_MODIFIER_PLAYER_BLOCK_INTERACTION_RANGE_OPTIMIZE,
-                    false,
+                    true,
                     deltaBlockInteractionRange,
                     EntityAttributeModifier.Operation.ADD_VALUE);
             if (!success) {
@@ -88,7 +88,7 @@ public class OptimizedCombat implements ModInitializer {
             success = EntityUtils.refreshAttributeModifier(player,
                     EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
                     ATTRIBUTE_MODIFIER_PLAYER_ENTITY_INTERACTION_RANGE_OPTIMIZE,
-                    false,
+                    true,
                     deltaEntityInteractionRange,
                     EntityAttributeModifier.Operation.ADD_VALUE);
             if (!success) {
@@ -107,7 +107,7 @@ public class OptimizedCombat implements ModInitializer {
             boolean success = EntityUtils.refreshAttributeModifier(player,
                     EntityAttributes.GENERIC_ATTACK_DAMAGE,
                     ATTRIBUTE_MODIFIER_GENERIC_ATTACK_DAMAGE_OPTIMIZE,
-                    false,
+                    true,
                     percentageOfHealthLost * 0.5,
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
             if (!success) {
@@ -116,7 +116,7 @@ public class OptimizedCombat implements ModInitializer {
             success = EntityUtils.refreshAttributeModifier(player,
                     EntityAttributes.GENERIC_ATTACK_SPEED,
                     ATTRIBUTE_MODIFIER_GENERIC_ATTACK_SPEED_OPTIMIZE,
-                    false,
+                    true,
                     percentageOfHealthLost * 0.5,
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
             if (!success) {
@@ -125,7 +125,7 @@ public class OptimizedCombat implements ModInitializer {
             success = EntityUtils.refreshAttributeModifier(player,
                     EntityAttributes.GENERIC_MOVEMENT_SPEED,
                     ATTRIBUTE_MODIFIER_GENERIC_MOVEMENT_SPEED_OPTIMIZE,
-                    false,
+                    true,
                     percentageOfHealthLost * 0.5,
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
             if (!success) {
@@ -134,7 +134,7 @@ public class OptimizedCombat implements ModInitializer {
             success = EntityUtils.refreshAttributeModifier(player,
                     EntityAttributes.GENERIC_ARMOR,
                     ATTRIBUTE_MODIFIER_GENERIC_ARMOR_OPTIMIZE,
-                    false,
+                    true,
                     percentageOfHealthLost * 0.5,
                     EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
             if (!success) {

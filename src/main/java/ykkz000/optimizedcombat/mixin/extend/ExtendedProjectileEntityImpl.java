@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import ykkz000.optimizedcombat.entity.ExtendedProjectileEntity;
-import ykkz000.optimizedcombat.world.explosion.NotDamageOwnerExplosionBehavior;
+import ykkz000.optimizedcombat.world.explosion.ExplosionEnchantmentExplosionBehavior;
 
 @Mixin(ProjectileEntity.class)
 public abstract class ExtendedProjectileEntityImpl extends Entity implements ExtendedProjectileEntity {
@@ -74,7 +74,7 @@ public abstract class ExtendedProjectileEntityImpl extends Entity implements Ext
     protected void onCollision(HitResult hitResult, CallbackInfo ci) {
         if (hitResult.getType() != HitResult.Type.MISS) {
             if (explosionLevel > 0) {
-                this.getWorld().createExplosion(this, Explosion.createDamageSource(this.getWorld(), this), new NotDamageOwnerExplosionBehavior(this.getOwner()), hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z, optimizedCombat$getExplosionLevel() * 1.2f, false, World.ExplosionSourceType.TRIGGER);
+                this.getWorld().createExplosion(this, Explosion.createDamageSource(this.getWorld(), this.getOwner()), new ExplosionEnchantmentExplosionBehavior(this.getOwner()), hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z, optimizedCombat$getExplosionLevel() * 1.2f, false, World.ExplosionSourceType.TNT);
                 if (!this.isRemoved())
                 {
                     this.remove(RemovalReason.KILLED);

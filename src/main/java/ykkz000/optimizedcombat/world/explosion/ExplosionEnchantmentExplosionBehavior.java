@@ -18,22 +18,46 @@
 
 package ykkz000.optimizedcombat.world.explosion;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
 
 import java.util.UUID;
 
-public class NotDamageOwnerExplosionBehavior extends ExplosionBehavior {
+public class ExplosionEnchantmentExplosionBehavior extends ExplosionBehavior {
     private final UUID ownerUUID;
 
-    public NotDamageOwnerExplosionBehavior(Entity owner) {
+    public ExplosionEnchantmentExplosionBehavior(Entity owner) {
         this.ownerUUID = owner == null ? null : owner.getUuid();
     }
 
     @Override
+    public boolean canDestroyBlock(Explosion explosion, BlockView world, BlockPos pos, BlockState state, float power) {
+        return false;
+    }
+
+    @Override
+    public float getKnockbackModifier(Entity entity) {
+        if (entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity) {
+            return 0.0f;
+        }
+        return super.getKnockbackModifier(entity);
+    }
+
+    @Override
     public boolean shouldDamage(Explosion explosion, Entity entity) {
+        if (entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity) {
+            return false;
+        }
+        if (entity.isImmuneToExplosion(explosion)) {
+            return false;
+        }
         if (ownerUUID != null) {
             if (ownerUUID.equals(entity.getUuid())) {
                 return false;

@@ -19,13 +19,15 @@
 package ykkz000.optimizedcombat.mixin;
 
 import net.minecraft.entity.player.HungerManager;
+import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(HungerManager.class)
 public abstract class HungerMangerMixin {
-    @Redirect(method = "update(Lnet/minecraft/entity/player/PlayerEntity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;heal(F)V"))
-    private void heal(net.minecraft.entity.player.PlayerEntity player, float amount) {
+    @Redirect(method = "update(Lnet/minecraft/entity/player/PlayerEntity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;canFoodHeal()Z"))
+    private boolean canFoodHeal(PlayerEntity instance) {
+        return false;
     }
 }

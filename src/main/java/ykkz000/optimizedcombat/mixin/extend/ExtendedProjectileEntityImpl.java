@@ -74,7 +74,7 @@ public abstract class ExtendedProjectileEntityImpl extends Entity implements Ext
     protected void onCollision(HitResult hitResult, CallbackInfo ci) {
         if (hitResult.getType() != HitResult.Type.MISS) {
             if (explosionLevel > 0) {
-                this.getWorld().createExplosion(this, Explosion.createDamageSource(this.getWorld(), this.getOwner()), new ExplosionEnchantmentExplosionBehavior(this.getOwner()), hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z, optimizedCombat$getExplosionLevel() * 1.2f, false, World.ExplosionSourceType.TNT);
+                this.getWorld().createExplosion(this, Explosion.createDamageSource(this.getWorld(), this.getOwner()), new ExplosionEnchantmentExplosionBehavior(this.getOwner()), hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z, optimizedCombat$getExplosionLevel() * 1.0f, false, World.ExplosionSourceType.TNT);
                 if (!this.isRemoved())
                 {
                     this.remove(RemovalReason.KILLED);

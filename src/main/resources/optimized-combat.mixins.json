@@ -6,10 +6,12 @@
   "mixins": [
     "HungerMangerMixin",
     "LivingEntityMixin",
+    "MiningToolItemMixin",
     "PersistentProjectileEntityMixin",
     "RangedWeaponItemMixin",
     "ServerPlayerEntityMixin",
     "ShieldItemMixin",
+    "SwordItemMixin",
     "extend.ExtendedEnchantmentImpl",
     "extend.ExtendedProjectileEntityImpl"
   ],

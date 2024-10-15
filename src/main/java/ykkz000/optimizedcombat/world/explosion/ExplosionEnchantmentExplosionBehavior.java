@@ -22,19 +22,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
 
-import java.util.UUID;
-
 public class ExplosionEnchantmentExplosionBehavior extends ExplosionBehavior {
-    private final UUID ownerUUID;
-
-    public ExplosionEnchantmentExplosionBehavior(Entity owner) {
-        this.ownerUUID = owner == null ? null : owner.getUuid();
+    public ExplosionEnchantmentExplosionBehavior() {
     }
 
     @Override
@@ -52,21 +46,6 @@ public class ExplosionEnchantmentExplosionBehavior extends ExplosionBehavior {
 
     @Override
     public boolean shouldDamage(Explosion explosion, Entity entity) {
-        if (entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity) {
-            return false;
-        }
-        if (entity.isImmuneToExplosion(explosion)) {
-            return false;
-        }
-        if (ownerUUID != null) {
-            if (ownerUUID.equals(entity.getUuid())) {
-                return false;
-            }
-            PlayerEntity owner = entity.getEntityWorld().getPlayerByUuid(ownerUUID);
-            if (owner != null && owner.isTeammate(entity)) {
-                return false;
-            }
-        }
-        return super.shouldDamage(explosion, entity);
+        return false;
     }
 }

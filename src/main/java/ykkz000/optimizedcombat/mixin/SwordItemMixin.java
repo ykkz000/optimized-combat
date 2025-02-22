@@ -36,12 +36,12 @@ public abstract class SwordItemMixin {
         return builder
                 .add(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
                         new EntityAttributeModifier(
-                                OptimizedCombat.PLAYER_BLOCK_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatSettings.INSTANCE.getInteractionSettings().getSwordsBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE
+                                OptimizedCombat.PLAYER_SWORDS_BLOCK_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatSettings.INSTANCE.getInteractionSettings().getSwordsBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND)
                 .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
                         new EntityAttributeModifier(
-                                OptimizedCombat.PLAYER_ENTITY_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatSettings.INSTANCE.getInteractionSettings().getSwordsEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE
+                                OptimizedCombat.PLAYER_SWORDS_ENTITY_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatSettings.INSTANCE.getInteractionSettings().getSwordsEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND).build();
     }

@@ -68,6 +68,8 @@ public final class OptimizedCombatSettings {
                 .build();
 
         this.interactionSettings = new InteractionSettings.Builder()
+                .baseBlockDistance(Integer.parseInt(properties.getProperty("optimized-combat.interaction.base-block-distance", "-1")))
+                .baseEntityDistance(Integer.parseInt(properties.getProperty("optimized-combat.interaction.base-entity-distance", "-1")))
                 .swordsBlockDistance(Integer.parseInt(properties.getProperty("optimized-combat.interaction.swords-block-distance", "1")))
                 .swordsEntityDistance(Integer.parseInt(properties.getProperty("optimized-combat.interaction.swords-entity-distance", "2")))
                 .toolsBlockDistance(Integer.parseInt(properties.getProperty("optimized-combat.interaction.tools-block-distance", "2")))
@@ -234,6 +236,8 @@ public final class OptimizedCombatSettings {
 
     @Data
     public static class InteractionSettings {
+        private final int baseBlockDistance;
+        private final int baseEntityDistance;
         private final int swordsBlockDistance;
         private final int swordsEntityDistance;
         private final int toolsBlockDistance;
@@ -243,6 +247,8 @@ public final class OptimizedCombatSettings {
         private final int shieldMaxCooldownTicks;
 
         private InteractionSettings(Builder builder) {
+            this.baseBlockDistance = builder.baseBlockDistance;
+            this.baseEntityDistance = builder.baseEntityDistance;
             this.swordsBlockDistance = builder.swordsBlockDistance;
             this.swordsEntityDistance = builder.swordsEntityDistance;
             this.toolsBlockDistance = builder.toolsBlockDistance;
@@ -253,6 +259,8 @@ public final class OptimizedCombatSettings {
         }
 
         private static class Builder {
+            private int baseBlockDistance;
+            private int baseEntityDistance;
             private int swordsBlockDistance;
             private int swordsEntityDistance;
             private int toolsBlockDistance;
@@ -262,6 +270,8 @@ public final class OptimizedCombatSettings {
             private int shieldMaxCooldownTicks;
 
             private Builder() {
+                this.baseBlockDistance = -1;
+                this.baseEntityDistance = -1;
                 this.swordsBlockDistance = 1;
                 this.swordsEntityDistance = 2;
                 this.toolsBlockDistance = 2;
@@ -269,6 +279,16 @@ public final class OptimizedCombatSettings {
                 this.shieldMaxTicks = 40;
                 this.shieldMinCooldownTicks = 15;
                 this.shieldMaxCooldownTicks = 30;
+            }
+
+            private Builder baseBlockDistance(int baseBlockDistance) {
+                this.baseBlockDistance = baseBlockDistance;
+                return this;
+            }
+
+            private Builder baseEntityDistance(int baseEntityDistance) {
+                this.baseEntityDistance = baseEntityDistance;
+                return this;
             }
 
             private Builder swordsBlockDistance(int swordsBlockDistance) {

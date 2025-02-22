@@ -7,11 +7,12 @@
 2. Killing living entities will provide 1 health absorption(Max 4) and 2 food levels.
 3. If $foodLevel<6$, player will get **Slowness** I, **Weakness** I, **Mining Fatigue** I status effect.
 4. High food level will not provide healing.
-5. Mining tool items provide +1 *Entity Interaction Range* and +2 *Block Interaction Range*.
-6. Sword items provide +2 *Entity Interaction Range* and +1 *Block Interaction Range*.
-7. Shield items can use continuously for only 40 ticks, and will cool down for $15\times{(1+useTime/40)}$ ticks.
-8. The maximum number of items stacked has been adjusted to 256.
-9. The player receives damage reduction. $damageReductionPercentage=0.3+0.4\times{lostHealthPercentage}$.
+5. The player has a -1 *entity interaction distance* and a -1 *block interaction distance*.
+6. Mining tool items provide +1 *Entity Interaction Range* and +2 *Block Interaction Range*.
+7. Sword items provide +2 *Entity Interaction Range* and +1 *Block Interaction Range*.
+8. Shield items can use continuously for only 40 ticks, and will cool down for $15\times{(1+useTime/40)}$ ticks.
+9. The maximum number of items stacked has been adjusted to 256.
+10. The player receives damage reduction. $damageReductionPercentage=0.3+0.4\times{lostHealthPercentage}$.
 ## Dependencies
 1. Java 21
 2. Minecraft(Java Edition)

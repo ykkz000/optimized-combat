@@ -36,8 +36,12 @@ import ykkz000.optimizedcombat.util.EntityUtils;
 public class OptimizedCombat implements ModInitializer {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final String MOD_ID = "optimized-combat";
-    public static final Identifier PLAYER_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_block_interaction_range");
-    public static final Identifier PLAYER_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_entity_interaction_range");
+    public static final Identifier PLAYER_BASE_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_block_interaction_range");
+    public static final Identifier PLAYER_BASE_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_entity_interaction_range");
+    public static final Identifier PLAYER_SWORDS_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_swords_block_interaction_range");
+    public static final Identifier PLAYER_SWORDS_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_swords_entity_interaction_range");
+    public static final Identifier PLAYER_TOOLS_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_tools_block_interaction_range");
+    public static final Identifier PLAYER_TOOLS_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_tools_entity_interaction_range");
     public static final Identifier ATTRIBUTE_MODIFIER_GENERIC_MAX_ABSORPTION_OPTIMIZE = Identifier.of(MOD_ID, "generic_max_absorption_optimize");
     public static final Identifier ATTRIBUTE_MODIFIER_GENERIC_MAX_HEALTH_OPTIMIZE = Identifier.of(MOD_ID, "generic_max_health_optimize");
 
@@ -84,6 +88,24 @@ public class OptimizedCombat implements ModInitializer {
                 EntityAttributeModifier.Operation.ADD_VALUE);
         if (!success) {
             LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.GENERIC_MAX_HEALTH.", player.getName());
+        }
+        success = EntityUtils.refreshAttributeModifier(player,
+                EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
+                PLAYER_BASE_BLOCK_INTERACTION_RANGE_MODIFIER_ID,
+                true,
+                OptimizedCombatSettings.INSTANCE.getInteractionSettings().getBaseBlockDistance(),
+                EntityAttributeModifier.Operation.ADD_VALUE);
+        if (!success) {
+            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE.", player.getName());
+        }
+        success = EntityUtils.refreshAttributeModifier(player,
+                EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
+                PLAYER_BASE_ENTITY_INTERACTION_RANGE_MODIFIER_ID,
+                true,
+                OptimizedCombatSettings.INSTANCE.getInteractionSettings().getBaseEntityDistance(),
+                EntityAttributeModifier.Operation.ADD_VALUE);
+        if (!success) {
+            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.", player.getName());
         }
     }
 

@@ -36,14 +36,10 @@ import ykkz000.optimizedcombat.util.EntityUtils;
 public class OptimizedCombat implements ModInitializer {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final String MOD_ID = "optimized-combat";
-    public static final Identifier PLAYER_BASE_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_block_interaction_range");
-    public static final Identifier PLAYER_BASE_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_entity_interaction_range");
-    public static final Identifier PLAYER_SWORDS_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_swords_block_interaction_range");
-    public static final Identifier PLAYER_SWORDS_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_swords_entity_interaction_range");
-    public static final Identifier PLAYER_TOOLS_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_tools_block_interaction_range");
-    public static final Identifier PLAYER_TOOLS_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "player_tools_entity_interaction_range");
-    public static final Identifier ATTRIBUTE_MODIFIER_GENERIC_MAX_ABSORPTION_OPTIMIZE = Identifier.of(MOD_ID, "generic_max_absorption_optimize");
-    public static final Identifier ATTRIBUTE_MODIFIER_GENERIC_MAX_HEALTH_OPTIMIZE = Identifier.of(MOD_ID, "generic_max_health_optimize");
+    public static final Identifier BASE_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "base_block_interaction_range");
+    public static final Identifier BASE_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "base_entity_interaction_range");
+    public static final Identifier MAX_ABSORPTION_MODIFIER_ID = Identifier.of(MOD_ID, "max_absorption");
+    public static final Identifier MAX_HEALTH_MODIFIER_ID = Identifier.of(MOD_ID, "max_health");
 
     @Override
     public void onInitialize() {
@@ -69,43 +65,43 @@ public class OptimizedCombat implements ModInitializer {
 
     private void updateInitialState(ServerPlayerEntity player) {
         boolean success = EntityUtils.refreshAttributeModifier(player,
-                EntityAttributes.GENERIC_MAX_ABSORPTION,
-                ATTRIBUTE_MODIFIER_GENERIC_MAX_ABSORPTION_OPTIMIZE,
+                EntityAttributes.MAX_ABSORPTION,
+                MAX_ABSORPTION_MODIFIER_ID,
                 true,
                 OptimizedCombatSettings.INSTANCE.getAbsorptionSettings().getMaxAbsorption(),
                 EntityAttributeModifier.Operation.ADD_VALUE);
         if (!success) {
-            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.GENERIC_MAX_ABSORPTION.", player.getName());
+            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.MAX_ABSORPTION.", player.getName());
         }
-        double healthDifficultyDelta = -1.0 * OptimizedCombatSettings.INSTANCE.getHealthSettings().getDeltaHealthDifficulty() * player.getServerWorld().getDifficulty().getId();
+        double healthDifficultyDelta = -OptimizedCombatSettings.INSTANCE.getHealthSettings().getDeltaHealthDifficulty() * player.getServerWorld().getDifficulty().getId();
         double healthExperienceLevelDelta = OptimizedCombatSettings.INSTANCE.getHealthSettings().getDeltaHealthExperienceLevel() * Math.floor((double) player.experienceLevel / OptimizedCombatSettings.INSTANCE.getHealthSettings().getStepExperienceLevel());
         double healthDelta = Math.min(0.0, healthDifficultyDelta + healthExperienceLevelDelta);
         success = EntityUtils.refreshAttributeModifier(player,
-                EntityAttributes.GENERIC_MAX_HEALTH,
-                ATTRIBUTE_MODIFIER_GENERIC_MAX_HEALTH_OPTIMIZE,
+                EntityAttributes.MAX_HEALTH,
+                MAX_HEALTH_MODIFIER_ID,
                 true,
                 healthDelta,
                 EntityAttributeModifier.Operation.ADD_VALUE);
         if (!success) {
-            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.GENERIC_MAX_HEALTH.", player.getName());
+            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.MAX_HEALTH.", player.getName());
         }
         success = EntityUtils.refreshAttributeModifier(player,
-                EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
-                PLAYER_BASE_BLOCK_INTERACTION_RANGE_MODIFIER_ID,
+                EntityAttributes.BLOCK_INTERACTION_RANGE,
+                BASE_BLOCK_INTERACTION_RANGE_MODIFIER_ID,
                 true,
                 OptimizedCombatSettings.INSTANCE.getInteractionSettings().getBaseBlockDistance(),
                 EntityAttributeModifier.Operation.ADD_VALUE);
         if (!success) {
-            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE.", player.getName());
+            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.BLOCK_INTERACTION_RANGE.", player.getName());
         }
         success = EntityUtils.refreshAttributeModifier(player,
-                EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
-                PLAYER_BASE_ENTITY_INTERACTION_RANGE_MODIFIER_ID,
+                EntityAttributes.ENTITY_INTERACTION_RANGE,
+                BASE_ENTITY_INTERACTION_RANGE_MODIFIER_ID,
                 true,
                 OptimizedCombatSettings.INSTANCE.getInteractionSettings().getBaseEntityDistance(),
                 EntityAttributeModifier.Operation.ADD_VALUE);
         if (!success) {
-            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.", player.getName());
+            LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.ENTITY_INTERACTION_RANGE.", player.getName());
         }
     }
 

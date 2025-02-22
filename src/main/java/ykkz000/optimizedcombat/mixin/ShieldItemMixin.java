@@ -47,17 +47,18 @@ public abstract class ShieldItemMixin extends Item {
     @Intrinsic(displace = true)
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         if (user instanceof PlayerEntity player) {
-            player.getItemCooldownManager().set((ShieldItem) (Object) this, getCoolDownTick(0));
+            player.getItemCooldownManager().set(stack, getCoolDownTick(0));
         }
         return stack;
     }
 
     @Override
     @Intrinsic(displace = true)
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (user instanceof PlayerEntity player) {
-            player.getItemCooldownManager().set((ShieldItem) (Object) this, getCoolDownTick(remainingUseTicks));
+            player.getItemCooldownManager().set(stack, getCoolDownTick(remainingUseTicks));
         }
+        return false;
     }
 
     @Unique

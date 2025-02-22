@@ -22,27 +22,35 @@ import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.Item;
 import net.minecraft.item.MiningToolItem;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import ykkz000.optimizedcombat.OptimizedCombat;
 import ykkz000.optimizedcombat.OptimizedCombatSettings;
 
 @Mixin(MiningToolItem.class)
 public abstract class MiningToolItemMixin {
-    @Redirect(method = "createAttributeModifiers(Lnet/minecraft/item/ToolMaterial;FF)Lnet/minecraft/component/type/AttributeModifiersComponent;", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/AttributeModifiersComponent$Builder;build()Lnet/minecraft/component/type/AttributeModifiersComponent;"))
-    private static AttributeModifiersComponent createExtendedAttributeModifiers(AttributeModifiersComponent.Builder builder) {
-        return builder
-                .add(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
+    @Unique
+    private static final Identifier TOOLS_BLOCK_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "tools_block_interaction_range");
+    @Unique
+    private static final Identifier TOOLS_ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(OptimizedCombat.MOD_ID, "tools_entity_interaction_range");
+
+    @ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;<init>(Lnet/minecraft/item/Item$Settings;)V"), index = 0)
+    private static Item.Settings createExtendedAttributeModifiers(Item.Settings settings) {
+        return settings.attributeModifiers(AttributeModifiersComponent.builder()
+                .add(EntityAttributes.BLOCK_INTERACTION_RANGE,
                         new EntityAttributeModifier(
-                                OptimizedCombat.PLAYER_TOOLS_BLOCK_INTERACTION_RANGE_MODIFIER_ID,  OptimizedCombatSettings.INSTANCE.getInteractionSettings().getToolsBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE
+                                TOOLS_BLOCK_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatSettings.INSTANCE.getInteractionSettings().getToolsBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND)
-                .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
+                .add(EntityAttributes.ENTITY_INTERACTION_RANGE,
                         new EntityAttributeModifier(
-                                OptimizedCombat.PLAYER_TOOLS_ENTITY_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatSettings.INSTANCE.getInteractionSettings().getToolsEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE
+                                TOOLS_ENTITY_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatSettings.INSTANCE.getInteractionSettings().getToolsEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
-                        AttributeModifierSlot.MAINHAND).build();
+                        AttributeModifierSlot.MAINHAND).build());
     }
 }

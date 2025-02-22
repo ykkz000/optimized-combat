@@ -26,7 +26,7 @@ import ykkz000.optimizedcombat.OptimizedCombatSettings;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
-    @ModifyVariable(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    @ModifyVariable(method = "damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private float reduceDamage(float damage) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         double rate = player.getHealth() / player.getMaxHealth();

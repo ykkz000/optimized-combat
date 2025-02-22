@@ -21,6 +21,7 @@ package ykkz000.optimizedcombat.mixin;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.component.ComponentChanges;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.dynamic.Codecs;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,15 +31,13 @@ import ykkz000.optimizedcombat.OptimizedCombatSettings;
 
 import java.util.function.Supplier;
 
-import static net.minecraft.item.ItemStack.ITEM_CODEC;
-
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
     @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Codec;lazyInitialized(Ljava/util/function/Supplier;)Lcom/mojang/serialization/Codec;", ordinal = 0), index = 0)
     private static Supplier<Codec<ItemStack>> modifyMaxStackSize(Supplier<Codec<ItemStack>> codec) {
         return () -> RecordCodecBuilder.create(
                 instance -> instance.group(
-                                ITEM_CODEC.fieldOf("id").forGetter(ItemStack::getRegistryEntry),
+                                Item.ENTRY_CODEC.fieldOf("id").forGetter(ItemStack::getRegistryEntry),
                                 Codecs.rangedInt(1, OptimizedCombatSettings.INSTANCE.getItemSettings().getMaxStackSize()).fieldOf("count").orElse(1).forGetter(ItemStack::getCount),
                                 ComponentChanges.CODEC.optionalFieldOf("components", ComponentChanges.EMPTY).forGetter(ItemStack::getComponentChanges)
                         )

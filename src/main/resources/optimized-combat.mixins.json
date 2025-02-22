@@ -4,15 +4,19 @@
   "package": "ykkz000.optimizedcombat.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "DataComponentTypesMixin",
     "HungerMangerMixin",
+    "InventoryMixin",
+    "ItemSettingsMixin",
+    "ItemStackMixin",
     "LivingEntityMixin",
     "MiningToolItemMixin",
     "PersistentProjectileEntityMixin",
     "ServerPlayerEntityMixin",
     "ShieldItemMixin",
     "SwordItemMixin",
-    "extend.ExtendedEnchantmentImpl",
-    "extend.ExtendedProjectileEntityImpl"
+    "impl.ExtendedEnchantmentImpl",
+    "impl.ExtendedProjectileEntityImpl"
   ],
   "client": [
   ],

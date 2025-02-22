@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.optimizedcombat.mixin.extend;
+package ykkz000.optimizedcombat.mixin.impl;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

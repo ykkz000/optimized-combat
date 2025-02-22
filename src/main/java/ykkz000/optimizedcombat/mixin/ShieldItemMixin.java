@@ -30,18 +30,17 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import ykkz000.optimizedcombat.OptimizedCombatSettings;
 
 @Mixin(ShieldItem.class)
 public abstract class ShieldItemMixin extends Item {
-    @Unique
-    private static final int MAX_SHIELD_USING_TIME = 40;
-    public ShieldItemMixin(Settings settings) {
+    private ShieldItemMixin(Settings settings) {
         super(settings);
     }
 
     @Inject(method = "getMaxUseTime(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)I", at = @At("HEAD"), cancellable = true)
-    public void getMaxUseTime(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(MAX_SHIELD_USING_TIME);
+    private void getMaxUseTime(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMaxTicks());
     }
 
     @Override
@@ -63,6 +62,8 @@ public abstract class ShieldItemMixin extends Item {
 
     @Unique
     private static int getCoolDownTick(int remainingUseTicks){
-        return 30 - 15 * remainingUseTicks / MAX_SHIELD_USING_TIME;
+        double rate = remainingUseTicks / (double) OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMaxTicks();
+        double maxDelta = OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMaxCooldownTicks() - OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMinCooldownTicks();
+        return OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMaxCooldownTicks() - (int) (maxDelta * rate);
     }
 }

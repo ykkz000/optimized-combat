@@ -27,6 +27,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import ykkz000.optimizedcombat.OptimizedCombat;
+import ykkz000.optimizedcombat.OptimizedCombatSettings;
 
 @Mixin(MiningToolItem.class)
 public abstract class MiningToolItemMixin {
@@ -35,12 +36,12 @@ public abstract class MiningToolItemMixin {
         return builder
                 .add(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
                         new EntityAttributeModifier(
-                                OptimizedCombat.PLAYER_BLOCK_INTERACTION_RANGE_MODIFIER_ID, 1.0, EntityAttributeModifier.Operation.ADD_VALUE
+                                OptimizedCombat.PLAYER_BLOCK_INTERACTION_RANGE_MODIFIER_ID,  OptimizedCombatSettings.INSTANCE.getInteractionSettings().getToolsBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND)
                 .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
                         new EntityAttributeModifier(
-                                OptimizedCombat.PLAYER_ENTITY_INTERACTION_RANGE_MODIFIER_ID, 2.0, EntityAttributeModifier.Operation.ADD_VALUE
+                                OptimizedCombat.PLAYER_ENTITY_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatSettings.INSTANCE.getInteractionSettings().getToolsEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND).build();
     }

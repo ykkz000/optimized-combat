@@ -60,9 +60,9 @@ public class OptimizedCombat implements ModInitializer {
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
             if (entity.isPlayer() && entity instanceof PlayerEntity player) {
                 if (player.isSpectator() || player.isCreative() || player.isDead()) return;
-                player.setAbsorptionAmount(player.getAbsorptionAmount() + 1.0f);
+                player.setAbsorptionAmount(player.getAbsorptionAmount() + OptimizedCombatSettings.INSTANCE.getAbsorptionSettings().getAbsorptionFromKill());
                 HungerManager hungerManager = player.getHungerManager();
-                hungerManager.setFoodLevel(hungerManager.getFoodLevel() + 2);
+                hungerManager.setFoodLevel(hungerManager.getFoodLevel() + OptimizedCombatSettings.INSTANCE.getHungerSettings().getHungerLevelFromKill());
             }
         });
     }
@@ -72,12 +72,14 @@ public class OptimizedCombat implements ModInitializer {
                 EntityAttributes.GENERIC_MAX_ABSORPTION,
                 ATTRIBUTE_MODIFIER_GENERIC_MAX_ABSORPTION_OPTIMIZE,
                 true,
-                2.0,
+                OptimizedCombatSettings.INSTANCE.getAbsorptionSettings().getMaxAbsorption(),
                 EntityAttributeModifier.Operation.ADD_VALUE);
         if (!success) {
             LOGGER.error("Failed to modify player {}'s attribute EntityAttributes.GENERIC_MAX_ABSORPTION.", player.getName());
         }
-        double healthDelta = Math.min(0.0, -4.0 * player.getServerWorld().getDifficulty().getId() + 2.0 * (double) (player.experienceLevel / 5));
+        double healthDifficultyDelta = -1.0 * OptimizedCombatSettings.INSTANCE.getHealthSettings().getDeltaHealthDifficulty() * player.getServerWorld().getDifficulty().getId();
+        double healthExperienceLevelDelta = OptimizedCombatSettings.INSTANCE.getHealthSettings().getDeltaHealthExperienceLevel() * Math.floor((double) player.experienceLevel / OptimizedCombatSettings.INSTANCE.getHealthSettings().getStepExperienceLevel());
+        double healthDelta = Math.min(0.0, healthDifficultyDelta + healthExperienceLevelDelta);
         success = EntityUtils.refreshAttributeModifier(player,
                 EntityAttributes.GENERIC_MAX_HEALTH,
                 ATTRIBUTE_MODIFIER_GENERIC_MAX_HEALTH_OPTIMIZE,
@@ -90,10 +92,10 @@ public class OptimizedCombat implements ModInitializer {
     }
 
     private void updateHungryPenalty(PlayerEntity player) {
-        if (player.getHungerManager().getFoodLevel() < 0.3 * 20) {
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 1, 1));
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 1, 1));
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 1, 1));
+        if (player.getHungerManager().getFoodLevel() < OptimizedCombatSettings.INSTANCE.getHungerSettings().getThresholdHungerLevel()) {
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 10, 0));
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 10, 0));
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 10, 0));
         }
     }
 }

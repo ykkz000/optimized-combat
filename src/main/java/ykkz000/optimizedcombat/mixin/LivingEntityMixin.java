@@ -26,14 +26,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin {
+public abstract class LivingEntityMixin {
     @Inject(method = "writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("RETURN"))
-    public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+    private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
         nbt.putFloat("absorptionAmount", ((LivingEntity) (Object) this).getAbsorptionAmount());
     }
 
     @Inject(method = "readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V", at = @At("RETURN"))
-    public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
+    private void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
         ((LivingEntity) (Object) this).setAbsorptionAmount(nbt.getFloat("absorptionAmount"));
     }
 }

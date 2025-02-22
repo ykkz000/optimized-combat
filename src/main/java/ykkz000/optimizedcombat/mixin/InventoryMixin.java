@@ -1,6 +1,6 @@
 /*
  * Optimized Combat
- * Copyright (C) 2024  ykkz000
+ * Copyright (C) 2025  ykkz000
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,17 +18,19 @@
 
 package ykkz000.optimizedcombat.mixin;
 
-import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.Overwrite;
 import ykkz000.optimizedcombat.OptimizedCombatSettings;
 
-@Mixin(HungerManager.class)
-public abstract class HungerMangerMixin {
-    @Redirect(method = "update(Lnet/minecraft/entity/player/PlayerEntity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;canFoodHeal()Z"))
-    private boolean canFoodHeal(PlayerEntity instance) {
-        return OptimizedCombatSettings.INSTANCE.getHungerSettings().isCanFoodHealth() && instance.canFoodHeal();
+@Mixin(Inventory.class)
+public interface InventoryMixin {
+    /**
+     * @author ykkz000
+     * @reason Modify the max stack size of the inventory
+     */
+    @Overwrite
+    default int getMaxCountPerStack() {
+        return OptimizedCombatSettings.INSTANCE.getItemSettings().getMaxStackSize();
     }
 }

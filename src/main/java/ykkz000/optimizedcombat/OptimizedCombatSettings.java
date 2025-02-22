@@ -32,6 +32,7 @@ public final class OptimizedCombatSettings {
     private final AbsorptionSettings absorptionSettings;
     private final HungerSettings hungerSettings;
     private final InteractionSettings interactionSettings;
+    private final PlayerSettings playerSettings;
 
     private OptimizedCombatSettings() {
         this(OptimizedCombatSettings.class.getResourceAsStream("/optimized-combat.properties"));
@@ -74,6 +75,11 @@ public final class OptimizedCombatSettings {
                 .shieldMaxTicks(Integer.parseInt(properties.getProperty("optimized-combat.interaction.shield-max-ticks", "40")))
                 .shieldMinCooldownTicks(Integer.parseInt(properties.getProperty("optimized-combat.interaction.shield-min-cooldown-ticks", "15")))
                 .shieldMaxCooldownTicks(Integer.parseInt(properties.getProperty("optimized-combat.interaction.shield-max-cooldown-ticks", "30")))
+                .build();
+
+        this.playerSettings = new PlayerSettings.Builder()
+                .minDamageReduce(Double.parseDouble(properties.getProperty("optimized-combat.player.min-damage-reduce", "0.5")))
+                .maxDamageReduce(Double.parseDouble(properties.getProperty("optimized-combat.player.max-damage-reduce", "0.5")))
                 .build();
     }
 
@@ -302,6 +308,41 @@ public final class OptimizedCombatSettings {
 
             private InteractionSettings build() {
                 return new InteractionSettings(this);
+            }
+        }
+    }
+
+    @Data
+    public static class PlayerSettings {
+        private final double minDamageReduce;
+        private final double maxDamageReduce;
+
+        private PlayerSettings(Builder builder) {
+            this.minDamageReduce = builder.minDamageReduce;
+            this.maxDamageReduce = builder.maxDamageReduce;
+        }
+
+        private static class Builder {
+            private double minDamageReduce;
+            private double maxDamageReduce;
+
+            private Builder() {
+                this.minDamageReduce = 0.5;
+                this.maxDamageReduce = 0.5;
+            }
+
+            private Builder minDamageReduce(double minDamageReduce) {
+                this.minDamageReduce = minDamageReduce;
+                return this;
+            }
+
+            private Builder maxDamageReduce(double maxDamageReduce) {
+                this.maxDamageReduce = maxDamageReduce;
+                return this;
+            }
+
+            private PlayerSettings build() {
+                return new PlayerSettings(this);
             }
         }
     }

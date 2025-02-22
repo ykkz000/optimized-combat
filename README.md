@@ -11,6 +11,7 @@
 6. Sword items provide +2 *Entity Interaction Range* and +1 *Block Interaction Range*.
 7. Shield items can use continuously for only 40 ticks, and will cool down for $15\times{(1+useTime/40)}$ ticks.
 8. The maximum number of items stacked has been adjusted to 256.
+9. The player receives damage reduction. $damageReductionPercentage=0.3+0.4\times{lostHealthPercentage}$.
 ## Dependencies
 1. Java 21
 2. Minecraft(Java Edition)

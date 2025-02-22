@@ -11,6 +11,7 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "MiningToolItemMixin",
+    "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
     "ShieldItemMixin",
     "SwordItemMixin"

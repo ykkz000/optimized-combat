@@ -10,8 +10,7 @@
 5. Mining tool items provide +1 *Entity Interaction Range* and +2 *Block Interaction Range*.
 6. Sword items provide +2 *Entity Interaction Range* and +1 *Block Interaction Range*.
 7. Shield items can use continuously for only 40 ticks, and will cool down for $15\times{(1+useTime/40)}$ ticks.
-8. Add new enchantment **Explosion**, which can be enchanted on bows. Projection entities which are shot from bows with **Explosion** enchantment will create explosions that not damage entities and blocks.
-9. The maximum number of items stacked has been adjusted to 256.
+8. The maximum number of items stacked has been adjusted to 256.
 ## Dependencies
 1. Java 21
 2. Minecraft(Java Edition)

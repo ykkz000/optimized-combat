@@ -30,8 +30,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
-import ykkz000.optimizedcombat.component.EnchantmentEffectComponentTypes;
-import ykkz000.optimizedcombat.enchantment.Enchantments;
 import ykkz000.optimizedcombat.event.ServerPlayerTickEvents;
 import ykkz000.optimizedcombat.util.EntityUtils;
 
@@ -45,8 +43,6 @@ public class OptimizedCombat implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        EnchantmentEffectComponentTypes.bootstrap();
-        Enchantments.bootstrap();
         ServerPlayerTickEvents.START_TICK.register(player -> {
             if (player.isSpectator() || player.isCreative() || player.isDead()) return ActionResult.PASS;
             updateInitialState(player);

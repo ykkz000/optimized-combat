@@ -11,12 +11,9 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "MiningToolItemMixin",
-    "PersistentProjectileEntityMixin",
     "ServerPlayerEntityMixin",
     "ShieldItemMixin",
-    "SwordItemMixin",
-    "impl.ExtendedEnchantmentImpl",
-    "impl.ExtendedProjectileEntityImpl"
+    "SwordItemMixin"
   ],
   "client": [
   ],

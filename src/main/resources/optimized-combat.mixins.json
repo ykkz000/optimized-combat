@@ -10,11 +10,10 @@
     "ItemSettingsMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
-    "MiningToolItemMixin",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
     "ShieldItemMixin",
-    "SwordItemMixin"
+    "ToolMaterialMixin"
   ],
   "client": [
   ],

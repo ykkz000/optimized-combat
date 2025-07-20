@@ -22,15 +22,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import ykkz000.optimizedcombat.OptimizedCombatSettings;
+import ykkz000.optimizedcombat.Settings;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
-    @ModifyVariable(method = "damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    @ModifyVariable(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private float reduceDamage(float damage) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         double rate = player.getHealth() / player.getMaxHealth();
-        double damageMaxDelta = OptimizedCombatSettings.INSTANCE.getPlayerSettings().getMaxDamageReduce() - OptimizedCombatSettings.INSTANCE.getPlayerSettings().getMinDamageReduce();
-        return damage * (float) (1.0f - (OptimizedCombatSettings.INSTANCE.getPlayerSettings().getMaxDamageReduce() - damageMaxDelta * rate));
+        double damageMaxDelta = Settings.INSTANCE.getPlayerSettings().getMaxDamageReduce() - Settings.INSTANCE.getPlayerSettings().getMinDamageReduce();
+        return damage * (float) (1.0f - (Settings.INSTANCE.getPlayerSettings().getMaxDamageReduce() - damageMaxDelta * rate));
     }
 }

@@ -30,7 +30,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ykkz000.optimizedcombat.OptimizedCombatSettings;
 
 @Mixin(ShieldItem.class)
 public abstract class ShieldItemMixin extends Item {
@@ -40,31 +39,30 @@ public abstract class ShieldItemMixin extends Item {
 
     @Inject(method = "getMaxUseTime(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)I", at = @At("HEAD"), cancellable = true)
     private void getMaxUseTime(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMaxTicks());
+        cir.setReturnValue(ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMaxTicks());
     }
 
     @Override
     @Intrinsic(displace = true)
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         if (user instanceof PlayerEntity player) {
-            player.getItemCooldownManager().set(stack, getCoolDownTick(0));
+            player.getItemCooldownManager().set(stack.getItem(), getCoolDownTick(0));
         }
         return stack;
     }
 
     @Override
     @Intrinsic(displace = true)
-    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (user instanceof PlayerEntity player) {
-            player.getItemCooldownManager().set(stack, getCoolDownTick(remainingUseTicks));
+            player.getItemCooldownManager().set(stack.getItem(), getCoolDownTick(remainingUseTicks));
         }
-        return false;
     }
 
     @Unique
     private static int getCoolDownTick(int remainingUseTicks){
-        double rate = remainingUseTicks / (double) OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMaxTicks();
-        double maxDelta = OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMaxCooldownTicks() - OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMinCooldownTicks();
-        return OptimizedCombatSettings.INSTANCE.getInteractionSettings().getShieldMaxCooldownTicks() - (int) (maxDelta * rate);
+        double rate = remainingUseTicks / (double) ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMaxTicks();
+        double maxDelta = ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMaxCooldownTicks() - ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMinCooldownTicks();
+        return ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMaxCooldownTicks() - (int) (maxDelta * rate);
     }
 }

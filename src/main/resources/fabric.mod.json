@@ -14,9 +14,6 @@
   "icon": "assets/optimized-combat/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "ykkz000.optimizedcombat.client.OptimizedCombatClient"
-    ],
     "main": [
       "ykkz000.optimizedcombat.OptimizedCombat"
     ]

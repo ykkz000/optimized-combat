@@ -21,7 +21,7 @@ package ykkz000.optimizedcombat.mixin;
 import net.minecraft.inventory.Inventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import ykkz000.optimizedcombat.OptimizedCombatSettings;
+import ykkz000.optimizedcombat.Settings;
 
 @Mixin(Inventory.class)
 public interface InventoryMixin {
@@ -31,6 +31,6 @@ public interface InventoryMixin {
      */
     @Overwrite
     default int getMaxCountPerStack() {
-        return OptimizedCombatSettings.INSTANCE.getItemSettings().getMaxStackSize();
+        return Settings.INSTANCE.getItemSettings().getMaxStackSize();
     }
 }

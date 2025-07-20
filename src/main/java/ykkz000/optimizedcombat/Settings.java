@@ -25,8 +25,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @Data
-public final class OptimizedCombatSettings {
-    public static final OptimizedCombatSettings INSTANCE = new OptimizedCombatSettings();
+public final class Settings {
+    public static final Settings INSTANCE = new Settings();
     private final ItemSettings itemSettings;
     private final HealthSettings healthSettings;
     private final AbsorptionSettings absorptionSettings;
@@ -34,11 +34,11 @@ public final class OptimizedCombatSettings {
     private final InteractionSettings interactionSettings;
     private final PlayerSettings playerSettings;
 
-    private OptimizedCombatSettings() {
-        this(OptimizedCombatSettings.class.getResourceAsStream("/optimized-combat.properties"));
+    private Settings() {
+        this(Settings.class.getResourceAsStream("/optimized-combat.properties"));
     }
 
-    private OptimizedCombatSettings(InputStream inputStream) {
+    private Settings(InputStream inputStream) {
         Properties properties = new Properties();
         try {
             properties.load(inputStream);
@@ -65,6 +65,7 @@ public final class OptimizedCombatSettings {
                 .hungerLevelFromKill(Integer.parseInt(properties.getProperty("optimized-combat.hunger.hunger-level-from-kill", "2")))
                 .thresholdHungerLevel(Integer.parseInt(properties.getProperty("optimized-combat.hunger.threshold-hunger-level", "6")))
                 .canFoodHealth(Boolean.parseBoolean(properties.getProperty("optimized-combat.hunger.can-food-health", "false")))
+                .canFoodHealthHealthLimit(Double.parseDouble(properties.getProperty("optimized-combat.hunger.can-food-health-health-limit", "0.3")))
                 .build();
 
         this.interactionSettings = new InteractionSettings.Builder()
@@ -195,17 +196,20 @@ public final class OptimizedCombatSettings {
         private final int hungerLevelFromKill;
         private final int thresholdHungerLevel;
         private final boolean canFoodHealth;
+        private final double canFoodHealthHealthLimit;
 
         private HungerSettings(Builder builder) {
             this.hungerLevelFromKill = builder.hungerLevelFromKill;
             this.thresholdHungerLevel = builder.thresholdHungerLevel;
             this.canFoodHealth = builder.canFoodHealth;
+            this.canFoodHealthHealthLimit = builder.canFoodHealthHealthLimit;
         }
 
         private static class Builder {
             private int hungerLevelFromKill;
             private int thresholdHungerLevel;
             private boolean canFoodHealth;
+            private double canFoodHealthHealthLimit;
 
             private Builder() {
                 this.hungerLevelFromKill = 2;
@@ -225,6 +229,11 @@ public final class OptimizedCombatSettings {
 
             private Builder canFoodHealth(boolean canFoodHealth) {
                 this.canFoodHealth = canFoodHealth;
+                return this;
+            }
+
+            private Builder canFoodHealthHealthLimit(double canFoodHealthHealthLimit) {
+                this.canFoodHealthHealthLimit = canFoodHealthHealthLimit;
                 return this;
             }
 

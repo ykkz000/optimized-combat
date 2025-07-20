@@ -8,14 +8,11 @@
     "HungerMangerMixin",
     "InventoryMixin",
     "ItemSettingsMixin",
-    "ItemStackMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
-    "ServerPlayerEntityMixin",
     "ShieldItemMixin",
-    "ToolMaterialMixin"
-  ],
-  "client": [
+    "SwordItemMixin",
+    "MiningToolItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

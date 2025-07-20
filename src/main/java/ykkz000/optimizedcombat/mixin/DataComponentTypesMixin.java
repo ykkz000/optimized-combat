@@ -25,7 +25,7 @@ import net.minecraft.util.dynamic.Codecs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import ykkz000.optimizedcombat.OptimizedCombatSettings;
+import ykkz000.optimizedcombat.Settings;
 
 import java.util.function.UnaryOperator;
 
@@ -33,6 +33,6 @@ import java.util.function.UnaryOperator;
 public abstract class DataComponentTypesMixin {
     @ModifyArg(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/DataComponentTypes;register(Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/component/ComponentType;", ordinal = 1), index = 1)
     private static UnaryOperator<ComponentType.Builder<Integer>> modifyMaxStackSize(String id, UnaryOperator<ComponentType.Builder<Integer>> builderOperator) {
-        return builder->builder.codec(Codecs.rangedInt(1, OptimizedCombatSettings.INSTANCE.getItemSettings().getMaxStackSize())).packetCodec(PacketCodecs.VAR_INT);
+        return builder->builder.codec(Codecs.rangedInt(1, Settings.INSTANCE.getItemSettings().getMaxStackSize())).packetCodec(PacketCodecs.VAR_INT);
     }
 }

@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
-import ykkz000.optimizedcombat.Settings;
+import ykkz000.optimizedcombat.config.OptimizedCombatConfiguration;
 
 @AutoBootstrap
 public class PlayerKillBonusController {
@@ -30,9 +30,9 @@ public class PlayerKillBonusController {
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
             if (entity.isPlayer() && entity instanceof PlayerEntity player) {
                 if (player.isSpectator() || player.isCreative() || player.isDead()) return;
-                player.setAbsorptionAmount(player.getAbsorptionAmount() + Settings.INSTANCE.getAbsorptionSettings().getAbsorptionFromKill());
+                player.setAbsorptionAmount(player.getAbsorptionAmount() + OptimizedCombatConfiguration.INSTANCE.getAbsorption().getAbsorptionFromKill());
                 HungerManager hungerManager = player.getHungerManager();
-                hungerManager.setFoodLevel(hungerManager.getFoodLevel() + Settings.INSTANCE.getHungerSettings().getHungerLevelFromKill());
+                hungerManager.setFoodLevel(hungerManager.getFoodLevel() + OptimizedCombatConfiguration.INSTANCE.getHunger().getHungerLevelFromKill());
             }
         });
     }

@@ -27,10 +27,4 @@ public class OptimizedCombat implements ModInitializer {
     public void onInitialize() {
         new ModBoot(OptimizedCombat.class).start();
     }
-
-
-
-
-
-
 }

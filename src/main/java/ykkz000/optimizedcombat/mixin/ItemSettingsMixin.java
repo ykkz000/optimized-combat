@@ -25,17 +25,17 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ykkz000.optimizedcombat.Settings;
+import ykkz000.optimizedcombat.config.OptimizedCombatConfiguration;
 
 @Mixin(Item.Settings.class)
 public abstract class ItemSettingsMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(CallbackInfo ci) {
-        ((Item.Settings) (Object) this).component(DataComponentTypes.MAX_STACK_SIZE, Settings.INSTANCE.getItemSettings().getMaxStackSize());
+        ((Item.Settings) (Object) this).component(DataComponentTypes.MAX_STACK_SIZE, OptimizedCombatConfiguration.INSTANCE.getItem().getMaxStackSize());
     }
 
     @Inject(method = "maxCount(I)Lnet/minecraft/item/Item$Settings;", at = @At("HEAD"), cancellable = true)
     private void maxCount(int maxCount, CallbackInfoReturnable<Item.Settings> cir) {
-        cir.setReturnValue(((Item.Settings) (Object) this).component(DataComponentTypes.MAX_STACK_SIZE, Settings.INSTANCE.getItemSettings().getMaxStackSize()));
+        cir.setReturnValue(((Item.Settings) (Object) this).component(DataComponentTypes.MAX_STACK_SIZE, OptimizedCombatConfiguration.INSTANCE.getItem().getMaxStackSize()));
     }
 }

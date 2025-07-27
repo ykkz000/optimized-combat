@@ -23,12 +23,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import ykkz000.optimizedcombat.Settings;
+import ykkz000.optimizedcombat.config.OptimizedCombatConfiguration;
 
 @Mixin(HungerManager.class)
 public abstract class HungerMangerMixin {
     @Redirect(method = "update(Lnet/minecraft/entity/player/PlayerEntity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;canFoodHeal()Z"))
     private boolean canFoodHeal(PlayerEntity instance) {
-        return Settings.INSTANCE.getHungerSettings().isCanFoodHealth() && Settings.INSTANCE.getHungerSettings().getCanFoodHealthHealthLimit() > (instance.getHealth() / instance.getMaxHealth()) && instance.canFoodHeal();
+        return OptimizedCombatConfiguration.INSTANCE.getHunger().isCanFoodHealth() && OptimizedCombatConfiguration.INSTANCE.getHunger().getCanFoodHealthLimit() > (instance.getHealth() / instance.getMaxHealth()) && instance.canFoodHeal();
     }
 }

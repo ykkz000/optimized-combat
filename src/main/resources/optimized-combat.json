@@ -1,0 +1,35 @@
+{
+  "item": {
+    "maxStackSize": 256
+  },
+  "health": {
+    "deltaHealthDifficulty": 4,
+    "deltaHealthExperienceLevel": 2,
+    "stepExperienceLevel": 5
+  },
+  "absorption": {
+    "maxAbsorption": 4,
+    "absorptionFromKill": 1
+  },
+  "hunger": {
+    "hungerLevelFromKill": 2,
+    "thresholdHungerLevel": 6,
+    "canFoodHealth": false,
+    "canFoodHealthLimit": 0.3
+  },
+  "interaction": {
+    "baseBlockDistance": -1,
+    "baseEntityDistance": -1,
+    "swordsBlockDistance": 1,
+    "swordsEntityDistance": 2,
+    "toolsBlockDistance": 2,
+    "toolsEntityDistance": 1,
+    "shieldMaxTicks": 40,
+    "shieldMinCooldownTicks": 15,
+    "shieldMaxCooldownTicks": 30
+  },
+  "player": {
+    "minDamageReduce": 0.3,
+    "maxDamageReduce": 0.7
+  }
+}

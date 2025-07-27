@@ -23,7 +23,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
 import ykkz000.cobblestone.api.event.ServerPlayerTickEvents;
-import ykkz000.optimizedcombat.Settings;
+import ykkz000.optimizedcombat.config.OptimizedCombatConfiguration;
 
 @AutoBootstrap
 public class PlayerHungerPenaltyController {
@@ -37,7 +37,7 @@ public class PlayerHungerPenaltyController {
     }
 
     private static void updateHungryPenalty(PlayerEntity player) {
-        if (player.getHungerManager().getFoodLevel() < Settings.INSTANCE.getHungerSettings().getThresholdHungerLevel()) {
+        if (player.getHungerManager().getFoodLevel() < OptimizedCombatConfiguration.INSTANCE.getHunger().getThresholdHungerLevel()) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 10, 0));
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 10, 0));
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 10, 0));

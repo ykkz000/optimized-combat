@@ -30,6 +30,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import ykkz000.optimizedcombat.config.OptimizedCombatConfiguration;
 
 @Mixin(ShieldItem.class)
 public abstract class ShieldItemMixin extends Item {
@@ -39,7 +40,7 @@ public abstract class ShieldItemMixin extends Item {
 
     @Inject(method = "getMaxUseTime(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)I", at = @At("HEAD"), cancellable = true)
     private void getMaxUseTime(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMaxTicks());
+        cir.setReturnValue(OptimizedCombatConfiguration.INSTANCE.getInteraction().getShieldMaxTicks());
     }
 
     @Override
@@ -61,8 +62,8 @@ public abstract class ShieldItemMixin extends Item {
 
     @Unique
     private static int getCoolDownTick(int remainingUseTicks){
-        double rate = remainingUseTicks / (double) ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMaxTicks();
-        double maxDelta = ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMaxCooldownTicks() - ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMinCooldownTicks();
-        return ykkz000.optimizedcombat.Settings.INSTANCE.getInteractionSettings().getShieldMaxCooldownTicks() - (int) (maxDelta * rate);
+        double rate = remainingUseTicks / (double) OptimizedCombatConfiguration.INSTANCE.getInteraction().getShieldMaxTicks();
+        double maxDelta = OptimizedCombatConfiguration.INSTANCE.getInteraction().getShieldMaxCooldownTicks() - OptimizedCombatConfiguration.INSTANCE.getInteraction().getShieldMinCooldownTicks();
+        return OptimizedCombatConfiguration.INSTANCE.getInteraction().getShieldMaxCooldownTicks() - (int) (maxDelta * rate);
     }
 }

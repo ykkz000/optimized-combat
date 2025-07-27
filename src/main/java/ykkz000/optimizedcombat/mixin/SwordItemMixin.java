@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import ykkz000.optimizedcombat.OptimizedCombat;
-import ykkz000.optimizedcombat.Settings;
+import ykkz000.optimizedcombat.config.OptimizedCombatConfiguration;
 
 @Mixin(SwordItem.class)
 public abstract class SwordItemMixin {
@@ -43,12 +43,12 @@ public abstract class SwordItemMixin {
         return builder
                 .add(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
                         new EntityAttributeModifier(
-                                SWORDS_BLOCK_INTERACTION_RANGE_MODIFIER_ID, Settings.INSTANCE.getInteractionSettings().getSwordsBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE
+                                SWORDS_BLOCK_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatConfiguration.INSTANCE.getInteraction().getSwordsBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND)
                 .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
                         new EntityAttributeModifier(
-                                SWORDS_ENTITY_INTERACTION_RANGE_MODIFIER_ID, Settings.INSTANCE.getInteractionSettings().getSwordsEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE
+                                SWORDS_ENTITY_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatConfiguration.INSTANCE.getInteraction().getSwordsEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND).build();
     }

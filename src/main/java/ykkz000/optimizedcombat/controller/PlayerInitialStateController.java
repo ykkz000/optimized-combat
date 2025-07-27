@@ -25,7 +25,7 @@ import net.minecraft.util.Identifier;
 import ykkz000.cobblestone.api.core.annotation.AutoBootstrap;
 import ykkz000.cobblestone.api.event.ServerPlayerTickEvents;
 import ykkz000.cobblestone.api.util.EntityUtils;
-import ykkz000.optimizedcombat.Settings;
+import ykkz000.optimizedcombat.config.OptimizedCombatConfiguration;
 
 import static ykkz000.optimizedcombat.OptimizedCombat.MOD_ID;
 
@@ -47,7 +47,7 @@ public class PlayerInitialStateController {
         EntityUtils.refreshAttributeModifier(player,
                 EntityAttributes.GENERIC_MAX_ABSORPTION,
                 true,
-                new EntityAttributeModifier(MAX_ABSORPTION_MODIFIER_ID, Settings.INSTANCE.getAbsorptionSettings().getMaxAbsorption(), EntityAttributeModifier.Operation.ADD_VALUE));
+                new EntityAttributeModifier(MAX_ABSORPTION_MODIFIER_ID, OptimizedCombatConfiguration.INSTANCE.getAbsorption().getMaxAbsorption(), EntityAttributeModifier.Operation.ADD_VALUE));
         double healthDelta = calcHealthDelta(player);
         EntityUtils.refreshAttributeModifier(player,
                 EntityAttributes.GENERIC_MAX_HEALTH,
@@ -56,16 +56,16 @@ public class PlayerInitialStateController {
         EntityUtils.refreshAttributeModifier(player,
                 EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
                 true,
-                new EntityAttributeModifier(BASE_BLOCK_INTERACTION_RANGE_MODIFIER_ID, Settings.INSTANCE.getInteractionSettings().getBaseBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE));
+                new EntityAttributeModifier(BASE_BLOCK_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatConfiguration.INSTANCE.getInteraction().getBaseBlockDistance(), EntityAttributeModifier.Operation.ADD_VALUE));
         EntityUtils.refreshAttributeModifier(player,
                 EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
                 true,
-                new EntityAttributeModifier(BASE_ENTITY_INTERACTION_RANGE_MODIFIER_ID, Settings.INSTANCE.getInteractionSettings().getBaseEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE));
+                new EntityAttributeModifier(BASE_ENTITY_INTERACTION_RANGE_MODIFIER_ID, OptimizedCombatConfiguration.INSTANCE.getInteraction().getBaseEntityDistance(), EntityAttributeModifier.Operation.ADD_VALUE));
     }
 
     private static double calcHealthDelta(ServerPlayerEntity player) {
-        double healthDifficultyDelta = -Settings.INSTANCE.getHealthSettings().getDeltaHealthDifficulty() * player.getServerWorld().getDifficulty().getId();
-        double healthExperienceLevelDelta = Settings.INSTANCE.getHealthSettings().getDeltaHealthExperienceLevel() * Math.floor((double) player.experienceLevel / Settings.INSTANCE.getHealthSettings().getStepExperienceLevel());
+        double healthDifficultyDelta = -OptimizedCombatConfiguration.INSTANCE.getHealth().getDeltaHealthDifficulty() * player.getServerWorld().getDifficulty().getId();
+        double healthExperienceLevelDelta = OptimizedCombatConfiguration.INSTANCE.getHealth().getDeltaHealthExperienceLevel() * Math.floor((double) player.experienceLevel / OptimizedCombatConfiguration.INSTANCE.getHealth().getStepExperienceLevel());
         return Math.min(0.0, healthDifficultyDelta + healthExperienceLevelDelta);
     }
 }

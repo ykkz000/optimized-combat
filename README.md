@@ -18,4 +18,5 @@
 2. Minecraft(Java Edition)
 3. [Fabric Loader](https://fabricmc.net/use/installer/)
 4. [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
-5. [Lombok](https://projectlombok.org/)(Compile only)
+5. [Cobblestone API](https://www.curseforge.com/minecraft/mc-mods/cobblestone-api)
+6. [Lombok](https://projectlombok.org/)(Compile only)
